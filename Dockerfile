@@ -34,10 +34,8 @@ WORKDIR code/geant4/build
 
 #add new packages here if needed
 RUN dnf -y install emacs xerces-c xerces-c-devel virtualenv htop libXmu-devel motif-devel libXpm-devel openssl-devel screen python3-h5py meld nodejs eigen3-devel 
-#RUN qt5-devel
 RUN dnf -y install tcl tcl-devel tk tk-devel gsl gsl-devel gmp gmp-devel qt5-qtbase-devel
 
-#RUN cmake ../geant4-v11.1.1 
 RUN cmake ../geant4-v11.1.1 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.11.1.1-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.11.1.1
 
 
@@ -48,6 +46,14 @@ RUN make install
 
 RUN source ../4.11.1.1-MT-CXX17/bin/geant4.sh
 
-
+#Install MiniScatter
+WORKDIR /
+RUN git clone https://github.com/kyrsjo/MiniScatter.git
+WORKDIR MiniScatter
+RUN mkdir build
+WORKDIR build
+RUN cmake ../. -DGeant4_DIR=../../code/geant4/build
+#RUN dnf -y install coreutils
+#RUN make
 
 #./MiniScatter -h
