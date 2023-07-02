@@ -20,17 +20,13 @@ RUN mkdir -p code/geant4
 ##Download the tar.gz source code
 RUN wget https://gitlab.cern.ch/geant4/geant4/-/archive/v10.7.3/geant4-v10.7.3.tar.gz
 RUN tar -xzvf geant4-v10.7.3.tar.gz -C code/geant4 #unpack the file
-
-RUN mkdir build #a scratch folder for actually building it
+RUN mkdir build
 WORKDIR code/geant4/build
 
 ##Cmake and set options
 RUN cmake ../geant4-v10.7.3 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.10.7.3-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.10.7.3
-##RUN cmake ../geant4-v11.1.1 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.11.1.1-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.11.1.1
-###RUN cmake ../geant4-v11.1.1 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.11.1.1-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.11.1.1 -DGEANT4_USE_GDML=ON -DGEANT4_USE_OPENGL_X11=OFF -DGEANT4_USE_QT=OFF -DGEANT4_USE_RAYTRACER_X11=ON -DGEANT4_USE_XM=ON
 RUN make -j 8
 RUN make install
-#RUN source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh
 
 ###Install MiniScatter
 WORKDIR /
