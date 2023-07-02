@@ -13,7 +13,7 @@ RUN dnf -y install expat expat-devel emacs xerces-c xerces-c-devel virtualenv ht
 RUN dnf -y install root python3-root root-notebook
 
 ###Install Geant4
-##make directories
+##Make directories
 RUN mkdir code
 RUN mkdir -p code/geant4
 
