@@ -37,3 +37,4 @@ WORKDIR build
 RUN cmake ../. -DGeant4_DIR=../../code/geant4/build
 RUN make -j 8
 
+RUN echo "run 'source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh' to run MiniScatter"
