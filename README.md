@@ -4,9 +4,9 @@ Then builds MiniScatter.
 
 Instructions:
 
-podman build -t rasterscatter .
+podman build -t miniscatter .
 
-podman run --rm -it -p 8888:8888 -v <path-to-directory>:/home/ rasterscatter
+podman run --rm -it -p 8888:8888 -v <path-to-directory>:/home/ miniscatter
 
 “-it” loads interactive mode and lets you run MiniScatter, definitely necessary.
 
