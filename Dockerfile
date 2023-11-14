@@ -33,24 +33,22 @@ WORKDIR /
 RUN git clone https://github.com/kyrsjo/MiniScatter.git
 WORKDIR MiniScatter
 RUN mkdir build
-WORKDIR build
+WORKDIR /MiniScatter/build
 RUN cmake ../. -DGeant4_DIR=../../code/geant4/build
 RUN make -j 8
 
 ###Install RasterScatter
-RUN mkdir /home/RasterScatter
-WORKDIR /home/RasterScatter
+RUN mkdir /RasterScatter
+WORKDIR /RasterScatter
 RUN git clone https://github.com/efacks68/MiniScatter.git
-#WORKDIR /home/RasterScatter/MiniScatter
-#RUN mkdir build
-#WORKDIR /home/RasterScatter/MiniScatter/build
-#RUN cmake ../. -DGeant4_DIR=/code/geant4/build
-#RUN make -j 8
+WORKDIR /RasterScatter/MiniScatter
+RUN mkdir build
+WORKDIR /RasterScatter/MiniScatter/build
+RUN cmake ../. -DGeant4_DIR=/code/geant4/build
+RUN make -j 8
 
-RUN echo "run 'source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh' to run MiniScatter"
-#RUN ./MiniScatter
-#RUN git checkout RasterScatter
+RUN git checkout RasterScatter
+RUN echo "run 'source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh' to load MiniScatter"
 
-#WORKDIR /home/RasterScatter/MiniScatter/examples/EricsScripts
 
 
