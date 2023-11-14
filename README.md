@@ -8,11 +8,13 @@ podman build -t rasterscatter .
 
 podman run --rm -it -p 8888:8888 -v <path-to-directory>:/home/ rasterscatter 
 
--it loads interactive mode. Once in the bash, load the tools needed to run MiniScatter with:
+"-it” loads interactive mode and lets you run MiniScatter, definitely necessary.
 
-`source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh`
+Optional flags: “-p” for using a port if you need it, “-v” to connect the “/home/” directory to a directory in your external file system. Modify all components as needed. 
 
-as printed at the end of the build.
+Once in the bash, don’t forget to load the tools needed to run MiniScatter with:
 
-Be sure to check for the correct Geant4 version
+`source /code/geant4/4.11.0.0-MT-CXX17/bin/geant4.sh`
+
+as printed at the end of the build. It will crash if you don’t :) 
 

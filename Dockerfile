@@ -18,37 +18,39 @@ RUN mkdir code
 RUN mkdir -p code/geant4
 
 ##Download the tar.gz source code
-RUN wget https://gitlab.cern.ch/geant4/geant4/-/archive/v10.7.3/geant4-v10.7.3.tar.gz
-RUN tar -xzvf geant4-v10.7.3.tar.gz -C code/geant4 #unpack the file
+RUN wget https://gitlab.cern.ch/geant4/geant4/-/archive/v11.0.0/geant4-v11.0.0.tar.gz
+RUN tar -xzvf geant4-v11.0.0.tar.gz -C code/geant4 #unpack the file
 RUN mkdir build
 WORKDIR code/geant4/build
 
 ##Cmake and set options
-RUN cmake ../geant4-v10.7.3 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.10.7.3-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.10.7.3
+RUN cmake ../geant4-v11.0.0 -DCMAKE_CXX_STANDARD=17 -DCMAKE_INSTALL_PREFIX=/code/geant4/4.11.0.0-MT-CXX17 -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_INSTALL_DATA=ON -DGEANT4_INSTALL_DATADIR=/code/geant4/data/data_v4.11.0.0
 RUN make -j 8
 RUN make install
 
 ###Install MiniScatter
-WORKDIR /
-RUN git clone https://github.com/kyrsjo/MiniScatter.git
-WORKDIR MiniScatter
-RUN mkdir build
-WORKDIR /MiniScatter/build
-RUN cmake ../. -DGeant4_DIR=../../code/geant4/build
-RUN make -j 8
+#WORKDIR /
+#RUN git clone https://github.com/kyrsjo/MiniScatter.git
+#WORKDIR MiniScatter
+#RUN mkdir build
+#WORKDIR /MiniScatter/build
+#RUN cmake ../. -DGeant4_DIR=../../code/geant4/build
+#RUN make -j 8
 
 ###Install RasterScatter
+RUN source /code/geant4/4.11.0.0-MT-CXX17/bin/geant4.sh
 RUN mkdir /RasterScatter
 WORKDIR /RasterScatter
 RUN git clone https://github.com/efacks68/MiniScatter.git
 WORKDIR /RasterScatter/MiniScatter
 RUN mkdir build
+RUN git checkout RasterScatter
+#RUN mkdir build
 WORKDIR /RasterScatter/MiniScatter/build
 RUN cmake ../. -DGeant4_DIR=/code/geant4/build
 RUN make -j 8
 
-RUN git checkout RasterScatter
-RUN echo "run 'source /code/geant4/4.10.7.3-MT-CXX17/bin/geant4.sh' to load MiniScatter"
+RUN echo "run 'source /code/geant4/4.11.0.0-MT-CXX17/bin/geant4.sh' to load MiniScatter"
 
 
 
